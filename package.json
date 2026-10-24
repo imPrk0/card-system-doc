@@ -1,33 +1,30 @@
 {
-  "name": "card-system-doc",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vitepress dev",
-    "build": "vitepress build",
-    "preview": "vitepress preview"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "12.15.0",
-      "onFail": "download"
+    "name": "card-system-doc",
+    "private": true,
+    "type": "module",
+    "description": "自动发卡系统文档。",
+    "author": "Prk",
+    "license": "MIT",
+    "scripts": {
+        "dev": "vitepress dev",
+        "build": "vitepress build",
+        "preview": "vitepress preview"
+    },
+    "devEngines": {
+        "packageManager": {
+            "name": "pnpm",
+            "version": "12.15.0",
+            "onFail": "download"
+        }
+    },
+    "packageManager": "pnpm@12.15.0",
+    "devDependencies": {
+        "vitepress": "2.0.0-alpha.20",
+        "vitepress-plugin-google-analytics": "^1.0.2",
+        "vue": "^3.5.44"
+    },
+    "dependencies": {
+        "@catppuccin/vitepress": "^0.1.4",
+        "element-plus": "^2.14.7"
     }
-  },
-  "packageManager": "pnpm@12.15.0",
-  "type": "module",
-  "devDependencies": {
-    "vitepress": "2.0.0-alpha.20",
-    "vitepress-plugin-google-analytics": "^1.0.2",
-    "vue": "^3.5.44"
-  },
-  "dependencies": {
-    "@catppuccin/vitepress": "^0.1.4",
-    "element-plus": "^2.14.7"
-  }
 }
