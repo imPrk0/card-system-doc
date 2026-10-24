@@ -2,6 +2,9 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
+title: 自动发卡系统文档
+titleTemplate: :title
+
 hero:
   name: 发卡系统
   text: 教程与开发文档

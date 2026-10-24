@@ -30,8 +30,10 @@ const updateSidebar = [
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
     srcDir: 'docs',
+    lang: 'zh-CN',
 
     title: '发卡系统文档',
+    titleTemplate: ':title - 发卡系统文档',
     description: '发卡系统的文档。',
     markdown: {
         theme: {
