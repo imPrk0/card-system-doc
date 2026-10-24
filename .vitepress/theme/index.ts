@@ -1,8 +1,11 @@
 // https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
-import type { Theme } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
-import './style.css'
+import { h } from 'vue';
+import type { Theme } from 'vitepress';
+import DefaultTheme from 'vitepress/theme';
+
+import googleAnalytics from 'vitepress-plugin-google-analytics';
+
+import './style.css';
 import '@catppuccin/vitepress/theme/mocha/blue.css';
 
 export default {
@@ -13,6 +16,8 @@ export default {
         })
     },
     enhanceApp({ app, router, siteData }) {
-        // ...
+        googleAnalytics({
+            id: 'G-DQHFZHE4GN'
+        })
     }
 } satisfies Theme;
