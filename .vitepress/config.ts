@@ -1,5 +1,37 @@
 import { defineConfig } from 'vitepress';
 
+const installSidebar = [
+    {
+        text: '面板安装',
+        items: [
+            {
+                text: '宝塔面板 / aaPanel',
+                link: '/install/aapanel'
+            },
+            {
+                text: '1Panel',
+                link: '/install/1panel'
+            }
+        ]
+    },
+    {
+        items: [
+            {
+                text: 'Docker',
+                link: '/install/docker'
+            },
+            {
+                text: '手动安装',
+                link: '/install/manual'
+            }
+        ]
+    },
+    {
+        text: '常见问题',
+        link: '/faq'
+    }
+];
+
 const updateSidebar = [
     {
         text: '更新教程',
@@ -76,6 +108,11 @@ export default defineConfig({
                 ]
             },
             {
+                text: '支付驱动',
+                activeMatch: '/payway',
+                link: '/payway/'
+            },
+            {
                 text: '更新',
                 activeMatch: '/update',
                 link: '/update'
@@ -91,6 +128,10 @@ export default defineConfig({
                 link: '/notice/'
             },
             {
+                text: '常见问题',
+                link: '/faq'
+            },
+            {
                 text: '更新日志',
                 activeMatch: '/changelog',
                 link: '/changelog/v3'
@@ -98,27 +139,29 @@ export default defineConfig({
         ],
 
         sidebar: {
-            '/install/': [
+            '/install/': installSidebar,
+            '/faq': installSidebar,
+            '/payway': [
                 {
-                    text: '面板安装',
+                    text: '支付驱动',
+                    link: '/payway/'
+                },
+                {
+                    text: '接入方式',
                     items: [
                         {
-                            text: '宝塔面板 / aaPanel',
-                            link: '/install/aapanel'
+                            text: '易支付',
+                            link: '/payway/epay'
                         },
                         {
-                            text: '1Panel',
-                            link: '/install/1panel'
+                            text: 'EpUSDT',
+                            link: '/payway/epusdt'
                         }
                     ]
                 },
                 {
-                    text: 'Docker',
-                    link: '/install/docker'
-                },
-                {
-                    text: '手动安装',
-                    link: '/install/manual'
+                    text: '💻 开发支付驱动',
+                    link: '/dev/payway'
                 }
             ],
             '/update': updateSidebar,
@@ -126,6 +169,14 @@ export default defineConfig({
                 {
                     text: '开发说明',
                     link: '/dev/'
+                },
+                {
+                    items: [
+                        {
+                            text: '支付驱动开发',
+                            link: '/dev/payway'
+                        }
+                    ]
                 }
             ],
             '/notice': [

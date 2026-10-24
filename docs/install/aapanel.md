@@ -2,68 +2,67 @@
 
 本文将会介绍在如何在&nbsp;“[宝塔面板](https://www.bt.cn)”&nbsp;或&nbsp;“[aaPanel](https://www.aapanel.com)”&nbsp;如何安装网站程序。
 
-::: warning 提示
+::: info 版本更新说明
 
-因为[漏洞](/notice/2026/10/critical-vulnerabilities-in-php-php2shell)，本文档等待更新。
+本项目自 [3.20](/changelog/v3.html#3-20) 版本起，正式更新到 PHP 8.2 ~ 8.5，Laravel 框架更新至 12 版本，之前的版本基于 PHP 7 的 Laravel 5.5 框架开发，所以在部署环境上有一定的差异，本文档将会分别介绍在宝塔面板下部署的方式。
 
 :::
 
 
-## 一、环境 {#environment}
+## 一、部署环境 {#environment}
 
-> 本文会着重强调 Linux 操作系统下使用 “宝塔面板” 的部署方式  
-> 本程序使用 `Laravel 5.5` 开发，所以可以自行在 Google 上搜寻该框架有关的部署教程
-
-服务器环境是一个非常重要的东西，部署好服务器环境可以为未来省去一些不必要的麻烦！
+“[宝塔面板](https://www.bt.cn)”&nbsp;或&nbsp;“[aaPanel](https://www.aapanel.com)”&nbsp;有着&nbsp;Linux&nbsp;与&nbsp;Windows&nbsp;版，功能大同小异。
 
 
-### 1) 系统环境 {#system-environment}
+### 1. 安装面板 {#install-aapanel}
 
-本文教程环境为 **CentOS 7.2**。
+因为安装过程过分简单，如需帮助请查阅官方文档：
 
-建议优先考虑使用 **CentOS**，如果你的 Linux 功底或 Ubuntu、Debian 等发行版的技术过硬，可以考虑。新手小白建议使用 **CentOS** 系统。
+- [快速安装宝塔面板（BT Panel） | 宝塔面板官方文档](https://docs.bt.cn/getting-started/quick-installation-of-bt-panel/)
+- [Quick Start | Comprehensive aaPanel Documentation: Guides, Tutorials, API, and Resources # Before Installation](https://docs.bt.cn/getting-started/before-installation/)
 
-并使用 Putty 或 XShell 甚至是 Windows 10 以上版本自带的 ssh 命令远程进服务器。
+以 Debian 为例：
 
+![](/assets/images/Screenshot_2026-10-24_at_23.33.11.png)
 
-### 2) 宝塔面板
-
-连接到服务器的 SSH 后，你可以使用下面的脚本安装宝塔面板。
-
-
-#### 中国版宝塔面板（汉语）
-
-``` sh
-# CentOS
-yum install -y wget && wget -O install.sh https://download.bt.cn/install/install_6.0.sh && sh install.sh ed8484bec
-
-# Ubuntu / Deepin
-wget -O install.sh https://download.bt.cn/install/install-ubuntu_6.0.sh && sudo bash install.sh ed8484bec
-
-# Debian
-wget -O install.sh https://download.bt.cn/install/install-ubuntu_6.0.sh && bash install.sh ed8484bec
-
-# 万能安装脚本
-if [ -f /usr/bin/curl ];then curl -sSO https://download.bt.cn/install/install_panel.sh;else wget -O install_panel.sh https://download.bt.cn/install/install_panel.sh;fi;bash install_panel.sh ed8484bec
-
-# “国产” 龙芯架构
-wget -O install_panel.sh https://download.bt.cn/install/0/loongarch64/loongarch64_install_panel.sh && bash install_panel.sh ed8484bec
-```
+在安装过程中找到 “面板账户登录信息”，重点记录 “username” 与 “password”，它们分别是登录时所需的用户名与密码。
 
 
-### 3) 软件环境
+### 2. 登录面板并部署环境 {#deploy-environment}
 
-安装 **LAMP** / **LNMP** 软件环境，分别是 **Linux + Apache + MySQL + PHP** 与 **Linux + Nginx + MySQL + PHP** 环境。唯一的区别就是一个是 **Apache** 另一个是 **Nginx**。
 
-如果你懂一点技术，那么推荐使用 **Apache**，否则新手小白建议选择 **Nginx**。_（Apache 调教好了是便利，调教不好是累赘）_
+#### 2.1 安装环境 {#deploy-environment-install}
 
-| 软件名 | 推荐版本 | 最低版本 |
-| :---: | :---:   | :---:   |
-| PHP   | `7.3`   | `7.0`   |
-| MySQL | `5.7`   | `5.5`   |
+首次登录宝塔面板 / aaPanel，系统会提示你安装环境，这里最核心的运行环境是：
+
+| 软件 | 版本 | 备注说明 |
+| :---: | :---: | :--- |
+| PHP | `8.2` ~ `8.5` | 需根据 [漏洞](/notice/2026/10/critical-vulnerabilities-in-php-php2shell.html#check-php-version) 修改版本 |
+| MySQL | `5.7+` | 如果硬件资源足够，可使用 `8.0` / `8.4` 等更新版本 |
+
+::: details [3.20](/changelog/v3.html#3-20) 之前版本 (不含 3.20)
+
+如果你使用的是基于 Laravel 5.5 的旧版本，那么请使用下面的环境：
+
+| 软件 | 版本 | 备注说明 |
+| :---: | :---: | :--- |
+| PHP | `7.0` | 推荐 `7.3` |
+| MySQL | `5.6+` | 推荐 `5.7` |
 
 _[PHP 5.6.X 即将停止安全支持](https://www.secrss.com/articles/5703)_
 
+⚠️ 使用旧版本的需要注意，你必须参照 [漏洞](/notice/2026/10/critical-vulnerabilities-in-php-php2shell.html#fix-patch) 对 PHP 进行补丁。
+
+:::
+
+至于服务器软件是选择 Nginx 还是 Apache 就要根据你的实际情况进行判断，Nginx 非常适合新手小白，推荐默认版本使用，至于 Apache 适合懂一点技术的用户。
+
+![](/assets/images/Screenshot_2026-10-24_at_23.38.43.png)
+
+注意，有关于 “安装方式”，宝塔面板 / aaPanel 给出了 “极速安装” 与 “编译安装”，根据实际测试，两者在兵法性能下差异并不算大，建议选择 “编译安装”，不过需要等待较长时间。
+
+
+#### 2.2
 
 ### 4) PHP 函数禁用
 
