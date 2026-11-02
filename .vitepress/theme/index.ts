@@ -1,12 +1,14 @@
 // https://vitepress.dev/guide/custom-theme
-import { h } from 'vue';
-import type { Theme } from 'vitepress';
+import { h, watch, nextTick, onMounted } from 'vue';
+import { useRoute, type Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 
 import googleAnalytics from 'vitepress-plugin-google-analytics';
 
-import './style.css';
+import './style.scss';
 import '@catppuccin/vitepress/theme/mocha/blue.css';
+
+import { setupMediumZoom } from './utils/medium-zoom';
 
 export default {
     extends: DefaultTheme,
@@ -19,5 +21,14 @@ export default {
         googleAnalytics({
             id: 'G-DQHFZHE4GN'
         })
+    },
+    setup: () => {
+        const route = useRoute();
+
+        onMounted((): void => {
+            setupMediumZoom();
+        });
+
+        watch((): string => route.path, (): void => setupMediumZoom());
     }
 } satisfies Theme;
